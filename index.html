@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b7a75">
+<title>CCNA Coach – Videos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f7f9;--panel:#fff;--ink:#14181f;--muted:#5d6676;--line:#e3e6ec;--accent:#0b7a75;--accent-ink:#fff;--accent-soft:#e3f3f2;--radius:14px}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1116;--panel:#161b22;--ink:#e6eaf0;--muted:#97a1b0;--line:#262d38;--accent:#2bb3ac;--accent-ink:#06201f;--accent-soft:#12302f}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,'Noto Sans Arabic',system-ui,sans-serif}
+a{color:var(--accent)}
+.wrap{max-width:980px;margin:0 auto;padding:16px 16px calc(24px + env(safe-area-inset-bottom))}
+header{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.logo{width:42px;height:34px;border-radius:9px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:700;font-size:11px;flex:none}
+header b{display:block;font-size:16px}header small{color:var(--muted);font-size:12px}
+.back{margin-left:auto}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:10px;padding:9px 14px;font:600 14px Inter,sans-serif;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+select{flex:1;min-width:0;font:600 14px Inter,sans-serif;padding:9px 10px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel)}
+.seg button{border:0;background:none;color:var(--muted);font:600 14px Inter,'Noto Sans Arabic',sans-serif;padding:9px 14px;cursor:pointer}
+.seg button.on{background:var(--accent);color:var(--accent-ink)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.vid{position:relative;aspect-ratio:16/9;background:#000}
+.vid iframe,.vid #player{position:absolute;inset:0;width:100%;height:100%;border:0}
+.blocked{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:#fff;padding:20px;background:radial-gradient(circle at 30% 20%,#23415a,#0d141c 70%)}
+.meta{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px}
+.meta h1{font-size:17px;margin:0;line-height:1.4;overflow-wrap:anywhere}
+.note{color:var(--muted);font-size:13px}
+.chip{display:inline-block;font-size:12px;font-weight:700;padding:2px 9px;border-radius:99px;background:var(--accent-soft);color:var(--accent)}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.nav{display:flex;justify-content:space-between;gap:8px;margin-top:12px}
+.list{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.li{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);text-decoration:none;font-size:14px;min-width:0}
+.li.cur{border-color:var(--accent);background:var(--accent-soft)}
+.li .id{color:var(--muted);font-size:12px;width:28px;flex:none}
+.li .t{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.li .ck{font-size:12px;color:var(--accent);flex:none;font-weight:700}
+h2{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:22px 0 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">CCNA</div>
+    <div><b>CCNA Coach – Videos</b><small>Best-rated English and Arabic video for every lesson</small></div>
+    <a class="btn back" id="back" href="https://claude.ai/artifact/M3YmCnrVRjbzYrfkhNYKfb">← Back to CCNA Coach</a>
+  </header>
+  <div class="bar">
+    <select id="sel" aria-label="Lesson"></select>
+    <div class="seg" role="group" aria-label="Language"><button data-lang="en">English</button><button data-lang="ar">العربية</button></div>
+  </div>
+  <div class="card">
+    <div class="vid"><div id="player"></div></div>
+    <div class="meta" id="meta"></div>
+  </div>
+  <div class="nav"><button class="btn" id="prev">← Previous</button><button class="btn" id="next">Next →</button></div>
+  <h2>All lessons</h2>
+  <div class="list" id="list"></div>
+</div>
+<script id="data" type="application/json">[{"id": "L1", "title": "Foundations: devices, models, TCP and UDP", "en": {"id": "H8W9oMNSuwo", "t": "Network Devices | Day 1", "ch": "Jeremy's IT Lab", "v": 10118110, "lk": 125469, "d": "PT30M26S"}, "ar": {"id": "61kRxdZ5p-o", "t": "شرح ال OSI Model وال 7 مراحل شرح مبسط بالعربي في 20 دقيقة فقط", "ch": "IT Dose", "v": 818684, "lk": 29500, "d": "PT20M11S"}}, {"id": "L2", "title": "Cabling and physical interface issues", "en": {"id": "ieTH5lVhNaY", "t": "Interfaces and Cables | Day 2", "ch": "Jeremy's IT Lab", "v": 2671065, "lk": 43038, "d": "PT35M52S"}, "ar": {"id": "HxSiVFgzO-s", "t": "شرح ال Interfaces والكابلات - Interfaces and Cables", "ch": "IT Dose", "v": 93965, "lk": 3302, "d": "PT16M38S"}}, {"id": "L3", "title": "IPv4 addressing and subnetting", "en": {"id": "bQ8sdpGQu8c", "t": "Subnetting (Part 1) | Day 13", "ch": "Jeremy's IT Lab", "v": 947963, "lk": 15967, "d": "PT28M54S"}, "ar": {"id": "LCTZ1kJvC70", "t": "شرح ال subnetting خطوة بخطوة - ازاي تقسم الشبكة ذي المحترفين - جزء ١", "ch": "IT Dose", "v": 292872, "lk": 8848, "d": "PT21M35S"}}, {"id": "L4", "title": "IPv6 addressing and prefixes", "en": {"id": "ZNuXyOXae5U", "t": "IPv6 Part 1 | Day 31", "ch": "Jeremy's IT Lab", "v": 394433, "lk": 7249, "d": "PT39M26S"}, "ar": {"id": "mdEM1FFRPng", "t": "CompTIA Network+ | IPv6 شرح بروتوكول", "ch": "Sameh Ramadan Tech", "v": 40609, "lk": 1027, "d": "PT33M"}}, {"id": "L5", "title": "Hypervisors, virtual machines and containers", "en": {"id": "_S3greGajJA", "t": "Virtualization & Cloud | Day 54", "ch": "Jeremy's IT Lab", "v": 182127, "lk": 3705, "d": "PT38M41S"}, "ar": {"id": "9zKVL1v3nVE", "t": "شرح تقنية ال Virtualization وال VM بطريقة مبسطة وجرافيك احترافي", "ch": "IT Dose", "v": 161150, "lk": 6338, "d": "PT12M"}}, {"id": "L6", "title": "Wireless principles", "en": {"id": "zuYiktLqNYQ", "t": "Wireless Fundamentals | Day 55", "ch": "Jeremy's IT Lab", "v": 326628, "lk": 5470, "d": "PT35M57S"}, "ar": {"id": "L3Keks1sa6o", "t": "شرح الشبكات اللاسلكية Wireless - Wi-Fi والفرق بين 2.4 و 5 GHZ", "ch": "IT Dose", "v": 108180, "lk": 4883, "d": "PT10M16S"}}, {"id": "L7", "title": "Wired and wireless client connectivity on Windows, macOS and Linux", "en": {"id": "wKi0E0F6rDk", "t": "1.10 Verify IP parameters for Client OS (Windows, Mac OS, Linux)", "ch": "NetworkBruh", "v": 1862, "lk": 57, "d": "PT7M37S"}, "ar": {"id": "dlEx0OhMNZc", "t": "1.10 Cisco CCNA 200-301 | Verify IP parameters for Client OS (Windows, Mac OS, Linux)", "ch": "Networks' Bites", "v": 175, "lk": 15, "d": "PT4M51S"}}, {"id": "L8", "title": "DHCPv4 client, server and relay on IOS", "en": {"id": "hzkleGAC2_Y", "t": "DHCP | Day 39", "ch": "Jeremy's IT Lab", "v": 297667, "lk": 5411, "d": "PT37M2S"}, "ar": {"id": "ODmgVVN-D0Q", "t": "شرح ال DHCP بالتفصيل وبالعربي وجرافيك احترافي", "ch": "IT Dose", "v": 230313, "lk": 17461, "d": "PT8M6S"}}, {"id": "L9", "title": "Switching basics: the MAC address table", "en": {"id": "u2n762WG0Vo", "t": "Ethernet LAN Switching (Part 1) | Day 5", "ch": "Jeremy's IT Lab", "v": 1597784, "lk": 21301, "d": "PT38M13S"}, "ar": {"id": "UcKMe0JKwyc", "t": "شرح تفصيلي لعملية ال Switching وال ARP", "ch": "IT Dose", "v": 80232, "lk": 4257, "d": "PT14M58S"}}, {"id": "L10", "title": "VLANs, access ports and voice VLANs", "en": {"id": "cjFzOnm6u1g", "t": "VLANs (Part 1) | Day 16", "ch": "Jeremy's IT Lab", "v": 850960, "lk": 13890, "d": "PT23M45S"}, "ar": {"id": "yX_1Yit53Lc", "t": "شرح تفصيلي لل VLAN بطريقة مبسطة وجرافيك احترافي", "ch": "IT Dose", "v": 232195, "lk": 7953, "d": "PT12M2S"}}, {"id": "L11", "title": "802.1Q trunks and the native VLAN", "en": {"id": "Jl9OOzNaBDU", "t": "VLANs (Part 2) | Day 17", "ch": "Jeremy's IT Lab", "v": 845568, "lk": 11875, "d": "PT40M1S"}, "ar": {"id": "8ap7qCcUrBA", "t": "CCNA 200-301 || (2/3) Native VLAN + 802.1Q شرح بروتوكول", "ch": "MrALSHABIB", "v": 26965, "lk": 564, "d": "PT12M28S"}}, {"id": "L12", "title": "Inter-VLAN routing: router-on-a-stick, SVIs and routed ports", "en": {"id": "OkPB028l2eE", "t": "VLANs (Part 3) | Day 18", "ch": "Jeremy's IT Lab", "v": 608883, "lk": 9166, "d": "PT32M32S"}, "ar": {"id": "MtA6OlEMbtU", "t": "#2: Inter-VLAN Routing (Router-on-a-stick) شرح + تطبيق عملي", "ch": "MrALSHABIB", "v": 31889, "lk": 645, "d": "PT21M"}}, {"id": "L13", "title": "LACP EtherChannel, Layer 2 and Layer 3", "en": {"id": "xuo69Joy_Nc", "t": "EtherChannel | Day 23", "ch": "Jeremy's IT Lab", "v": 488555, "lk": 8313, "d": "PT41M33S"}, "ar": {"id": "iMGE2D6L77I", "t": "شرح Etherchannel | (LACP - PAgP - Static) | Load Distribution | Layer 2 & 3", "ch": "MrALSHABIB", "v": 16206, "lk": 453, "d": "PT34M"}}, {"id": "L14", "title": "Port settings for edge devices: PoE, APs, phones, VMs and appliances", "en": {"id": "MLxgmkRzgIQ", "t": "why Power over Ethernet (PoE) is amazing!! | Free CCNA EP 12", "ch": "NetworkChuck", "v": 537902, "lk": 13225, "d": "PT19M39S"}, "ar": {"id": "FkaKby8723U", "t": "Power over Ethernet (PoE) - CCNA (عربي)", "ch": "", "v": null, "lk": null, "d": ""}}, {"id": "L15", "title": "Validating documentation with CDP and LLDP", "en": {"id": "_hnMZBzXRRk", "t": "CDP & LLDP | Day 36", "ch": "Jeremy's IT Lab", "v": 242529, "lk": 4541, "d": "PT39M23S"}, "ar": {"id": "IyV4F5J7RV8", "t": "شرح بروتوكول CDP & LLDP | كيف نعرف أجهزة الشبكة في العالم الواقعي؟", "ch": "MrALSHABIB", "v": 4882, "lk": 150, "d": "PT25M58S"}}, {"id": "L16", "title": "Rapid PVST+", "en": {"id": "EpazNsLlPps", "t": "Rapid Spanning Tree Protocol | Day 22", "ch": "Jeremy's IT Lab", "v": 454836, "lk": 8127, "d": "PT43M1S"}, "ar": {"id": "RULcnL2cq3A", "t": "شرح مفصل ل STP | افهم Spanning Tree Protocol من الصفر", "ch": "IT Dose", "v": 20637, "lk": 784, "d": "PT17M"}}, {"id": "L17", "title": "Troubleshooting toolkit: show commands, ping, traceroute and captures", "en": {"id": "vJV-GBZ6PeM", "t": "PING and TRACERT (traceroute) networking commands", "ch": "PowerCert Animated Videos", "v": 1024669, "lk": 18602, "d": "PT4M40S"}, "ar": {"id": "KiupWr2A5mw", "t": "دورة أساسيات الشبكات عملي: أمر ping وأمر tracert لتشخيص مشاكل الشبكات", "ch": "", "v": null, "lk": null, "d": ""}}, {"id": "L18", "title": "Reading the routing table", "en": {"id": "aHwAm8GYbn8", "t": "Routing Fundamentals | Day 11", "ch": "Jeremy's IT Lab", "v": 767028, "lk": 13065, "d": "PT31M"}, "ar": {"id": "pl_8vmWV9pw", "t": "أبسط شرح للراوتنج Routing | الفرق بين Static Routing و Dynamic Routing", "ch": "IT Dose", "v": 63217, "lk": 2908, "d": "PT10M39S"}}, {"id": "L19", "title": "IPv4 and IPv6 static routing", "en": {"id": "YCv4-_sMvYE", "t": "Static Routing | Day 11 (part 2)", "ch": "Jeremy's IT Lab", "v": 652595, "lk": 10757, "d": "PT37M44S"}, "ar": {"id": "Nqm7JbM0i9k", "t": "شرح شامل لل Static Routing خطوة بخطوة بأبسط طريقة", "ch": "IT Dose", "v": 43273, "lk": 1768, "d": "PT17M8S"}}, {"id": "L20", "title": "Single-area OSPFv2", "en": {"id": "pvuaoJ9YzoI", "t": "OSPF Part 1 | Day 26", "ch": "Jeremy's IT Lab", "v": 695875, "lk": 9785, "d": "PT39M40S"}, "ar": {"id": "7n5ZrDwqNcU", "t": "شرح تفصيلي لل OSPF - أهم بروتوكول في الشبكات", "ch": "IT Dose", "v": 37034, "lk": 1419, "d": "PT19M23S"}}, {"id": "L21", "title": "Single-area OSPFv3 for IPv6", "en": {"id": "KU0tIALrj9M", "t": "OSPFv3 Unlocked: Routing the IPv6 Way | CCNA Prep", "ch": "Learn with Cisco", "v": 4640, "lk": 88, "d": "PT1H5M5S"}, "ar": {"id": "WTL9HxkmhUc", "t": "شرح ipv6 بالتفصيل وتفعيل routing, OSPF v3 (محاضرة 1 من 2)", "ch": "Ahmed Nazmy", "v": null, "lk": null, "d": ""}}, {"id": "L22", "title": "HSRP and VRRP status", "en": {"id": "43WnpwQMolo", "t": "First Hop Redundancy Protocols | Day 29", "ch": "Jeremy's IT Lab", "v": 344525, "lk": 5931, "d": "PT40M25S"}, "ar": {"id": "d4SeGC9dBGE", "t": "الجزء النظري || First Hop Redundancy Protocols (FHRPs) شرح || HSRP, VRRP, GLBP", "ch": "MrALSHABIB", "v": 9871, "lk": 249, "d": "PT24M46S"}}, {"id": "L23", "title": "Local users, SSH and AAA with TACACS+ / RADIUS", "en": {"id": "AvgYqI2qSD4", "t": "SSH | Day 42", "ch": "Jeremy's IT Lab", "v": 218917, "lk": 4185, "d": "PT31M7S"}, "ar": {"id": "U4-srtqfIBc", "t": "شرح ال AAA؟ 3 مفاهيم أساسية لازم تعرفها في الأمن السيبراني", "ch": "IT Dose", "v": 8944, "lk": 284, "d": "PT10M"}}, {"id": "L24", "title": "Managing configs and IOS files with SFTP / SCP", "en": {"id": "50hcfsoBf4Q", "t": "FTP & TFTP | Day 43", "ch": "Jeremy's IT Lab", "v": 178755, "lk": 3734, "d": "PT30M55S"}, "ar": {"id": "ecnsURHEKmA", "t": "Upgrade IOS Switch by TFTP Server + Backup ملف التهيئة شرح بالعربية", "ch": "", "v": null, "lk": null, "d": ""}}, {"id": "L25", "title": "NAT and PAT on IOS XE", "en": {"id": "2TZCfTgopeg", "t": "NAT (Part 1) | Day 44", "ch": "Jeremy's IT Lab", "v": 285510, "lk": 5468, "d": "PT32M10S"}, "ar": {"id": "TriqRvr-X_o", "t": "شرح ال NAT وأنواعه بالتفصيل بجرافيك احترافي", "ch": "IT Dose", "v": 120354, "lk": 5138, "d": "PT14M"}}, {"id": "L26", "title": "Diagnosing DNS record issues", "en": {"id": "4C6eeQes4cs", "t": "DNS | Day 38", "ch": "Jeremy's IT Lab", "v": 248365, "lk": 4744, "d": "PT30M11S"}, "ar": {"id": "s-9143t3cHA", "t": "شرح شامل لل DNS بالعربي - Domain Name system", "ch": "IT Dose", "v": 273412, "lk": 11426, "d": "PT6M45S"}}, {"id": "L27", "title": "IPsec remote-access and site-to-site VPNs", "en": {"id": "CWy3x3Wux6o", "t": "VPNs Explained | Site-to-Site + Remote Access", "ch": "CertBros", "v": 968743, "lk": 14260, "d": "PT9M8S"}, "ar": {"id": "e-4UXfrn-VA", "t": "Internet Protocol Security (IPsec) CCNA (عربي)", "ch": "", "v": null, "lk": null, "d": ""}}, {"id": "L28", "title": "IPv4 ACLs: standard, extended, numbered, named", "en": {"id": "z023_eRUtSo", "t": "Standard ACLs | Day 34", "ch": "Jeremy's IT Lab", "v": 384104, "lk": 6097, "d": "PT46M51S"}, "ar": {"id": "XAP8xSE7gzg", "t": "شرح Access Control List (ACL) | Standard and Extended ACL | الجزء الأول", "ch": "MrALSHABIB", "v": 25247, "lk": 580, "d": "PT35M"}}, {"id": "L29", "title": "Layer 2 security: DHCP snooping, DAI, storm control, RA guard, port security", "en": {"id": "qYYeg2kz1yE", "t": "DHCP Snooping | Day 50", "ch": "Jeremy's IT Lab", "v": 209606, "lk": 4108, "d": "PT28M23S"}, "ar": {"id": "R2AAhXI0qOU", "t": "Switch Security Configuration (Port Security & DHCP Snooping) (عربي)", "ch": "Nabeel Al-Sahafi", "v": 24646, "lk": 585, "d": "PT35M59S"}}, {"id": "L30", "title": "Management approaches, SNMP and syslog", "en": {"id": "HXu0Ifj0oWU", "t": "SNMP | Day 40", "ch": "Jeremy's IT Lab", "v": 270470, "lk": 5274, "d": "PT29M21S"}, "ar": {"id": "gKDuFVX5_0Q", "t": "45-CCNA 200-301 (SNMP & Syslog) By Eng-Walid Saad Eldin", "ch": "Information Technology", "v": null, "lk": null, "d": ""}}, {"id": "L31", "title": "Running commands with Ansible", "en": {"id": "Kog9gHTjALI", "t": "Ansible, Puppet, & Chef | Day 63", "ch": "Jeremy's IT Lab", "v": 196343, "lk": 3973, "d": "PT21M33S"}, "ar": {"id": "3_SCOh11WhA", "t": "What is Ansible? (شرح بالعربي)", "ch": "", "v": null, "lk": null, "d": ""}}, {"id": "L32", "title": "Agentic AI and choosing GenAI prompts", "en": {"id": "y8YtQzj5bBM", "t": "Agentic AI for Network Engineers", "ch": "Kevin Wallace Training", "v": 8450, "lk": 182, "d": "PT10M7S"}, "ar": {"id": "APtJyfU7Gl4", "t": "الذكاء الاصطناعي الوكالي (Agentic AI)", "ch": "", "v": null, "lk": null, "d": ""}}]</script>
+<script>
+const L=JSON.parse(document.getElementById('data').textContent);
+const byId=Object.fromEntries(L.map(l=>[l.id,l]));
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let W={}; try{W=JSON.parse(localStorage.getItem('ccna-vid-watched')||'{}')}catch(e){}
+function saveW(){try{localStorage.setItem('ccna-vid-watched',JSON.stringify(W))}catch(e){}}
+let lang='en'; try{lang=localStorage.getItem('ccna-vid-lang')||'en'}catch(e){}
+let cur=L[0].id;
+function fmtN(n){ if(n==null) return ''; const f=(x,u)=>(x>=100?Math.round(x):x.toFixed(1).replace(/\.0$/,''))+u; return n>=1e6?f(n/1e6,'M'):n>=1e3?f(n/1e3,'K'):String(n); }
+function fmtDur(p){ const m=/^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/.exec(p||''); if(!m) return ''; const h=+m[1]||0,mi=+m[2]||0,s=+m[3]||0,z=x=>String(x).padStart(2,'0'); return h?`${h}:${z(mi)}:${z(s)}`:`${mi}:${z(s)}`; }
+const key=(id,lg)=>id+'-'+lg;
+
+function parseHash(){
+  const m=/^#(L\d{1,2})(?:-(en|ar))?$/.exec(location.hash);
+  if(m && byId[m[1]]){ cur=m[1]; if(m[2]) lang=m[2]; }
+}
+// YouTube player
+let yt=null, ytReady=false, pendingId=null;
+window.onYouTubeIframeAPIReady=()=>{ ytReady=true; if(pendingId) loadVideo(pendingId); };
+function loadVideo(id){
+  if(!ytReady){ pendingId=id; return; }
+  const box=document.querySelector('.vid'); const bl=box.querySelector('.blocked'); if(bl) bl.remove();
+  if(yt){ yt.cueVideoById(id); return; }
+  yt=new YT.Player('player',{host:'https://www.youtube-nocookie.com',videoId:id,
+    playerVars:{rel:0,playsinline:1,modestbranding:1},
+    events:{onError:e=>showBlocked(e.data), onStateChange:e=>{ if(e.data===0){ markWatched(true); } }}});
+}
+function showBlocked(code){
+  const v=byId[cur][lang];
+  const d=document.createElement('div'); d.className='blocked';
+  d.innerHTML=`<div><p style="margin:0 0 12px">${code===101||code===150?'The uploader doesn\'t allow this video to play outside YouTube.':'This video couldn\'t load here.'}</p>
+    <a class="btn primary" href="https://www.youtube.com/watch?v=${encodeURIComponent(v.id)}" target="_blank" rel="noopener">▶ Watch on YouTube</a></div>`;
+  document.querySelector('.vid').appendChild(d);
+}
+function markWatched(val){ W[key(cur,lang)]=val; saveW(); renderMeta(); renderList(); }
+function renderMeta(){
+  const l=byId[cur], v=l[lang], w=!!W[key(cur,lang)];
+  const stats=v.v!=null?`${fmtN(v.v)} views · ${fmtN(v.lk)} likes`:'Top YouTube match for this topic';
+  $('#meta').innerHTML=`<div><span class="chip">${l.id}</span> <span class="note">${esc(l.title)}</span></div>
+   <h1 dir="auto">${esc(v.t)}</h1>
+   <div class="note">${v.ch?esc(v.ch)+' · ':''}${v.d?fmtDur(v.d)+' · ':''}${stats}</div>
+   <div class="acts"><button class="btn ${w?'':'primary'}" id="wbtn">${w?'✓ Watched':'Mark as watched'}</button>
+   <a class="btn" href="https://www.youtube.com/watch?v=${encodeURIComponent(v.id)}" target="_blank" rel="noopener">Open on YouTube</a></div>`;
+  $('#wbtn').onclick=()=>markWatched(!w);
+}
+function renderList(){
+  $('#list').innerHTML=L.map(l=>{ const e=W[key(l.id,'en')], a=W[key(l.id,'ar')];
+    return `<a class="li ${l.id===cur?'cur':''}" href="#${l.id}-${lang}"><span class="id">${l.id}</span><span class="t">${esc(l.title)}</span><span class="ck">${e?'EN✓':''} ${a?'AR✓':''}</span></a>`; }).join('');
+}
+function render(){
+  try{localStorage.setItem('ccna-vid-lang',lang)}catch(e){}
+  $('#sel').value=cur;
+  document.querySelectorAll('.seg button').forEach(b=>b.classList.toggle('on',b.dataset.lang===lang));
+  $('#back').href='https://claude.ai/artifact/M3YmCnrVRjbzYrfkhNYKfb#'+cur;
+  const i=L.findIndex(l=>l.id===cur); $('#prev').disabled=i===0; $('#next').disabled=i===L.length-1;
+  renderMeta(); renderList(); loadVideo(byId[cur][lang].id);
+  document.title=`${cur} – CCNA Coach Videos`;
+}
+function go(id,lg){ const h='#'+id+'-'+(lg||lang); if(location.hash!==h) location.hash=h; else { parseHash(); render(); } }
+$('#sel').innerHTML=L.map(l=>`<option value="${l.id}">${l.id} · ${esc(l.title)}</option>`).join('');
+$('#sel').onchange=e=>go(e.target.value);
+document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>go(cur,b.dataset.lang));
+$('#prev').onclick=()=>{ const i=L.findIndex(l=>l.id===cur); if(i>0) go(L[i-1].id); };
+$('#next').onclick=()=>{ const i=L.findIndex(l=>l.id===cur); if(i<L.length-1) go(L[i+1].id); };
+addEventListener('hashchange',()=>{ parseHash(); render(); window.scrollTo({top:0,behavior:'smooth'}); });
+parseHash(); render();
+</script>
+<script src="https://www.youtube.com/iframe_api" async></script>
+</body>
+</html>
