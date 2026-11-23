@@ -45,6 +45,7 @@ select{flex:1;min-width:0;font:600 14px Inter,sans-serif;padding:9px 10px;border
 .li .id{color:var(--muted);font-size:12px;width:28px;flex:none}
 .li .t{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .li .ck{font-size:12px;color:var(--accent);flex:none;font-weight:700}
+.pl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 12px}
 h2{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:22px 0 0}
 </style>
 </head>
@@ -59,6 +60,7 @@ h2{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.05
     <select id="sel" aria-label="Lesson"></select>
     <div class="seg" role="group" aria-label="Language"><button data-lang="en">English</button><button data-lang="ar">العربية</button></div>
   </div>
+  <div class="pl"><span class="note">Save the whole course to your YouTube account:</span> <a class="btn" id="plEn" target="_blank" rel="noopener">▶ English playlist</a> <a class="btn" id="plAr" target="_blank" rel="noopener">▶ قائمة بالعربي</a></div>
   <div class="card">
     <div class="vid"><div id="player"></div></div>
     <div class="meta" id="meta"></div>
@@ -91,11 +93,15 @@ window.onYouTubeIframeAPIReady=()=>{ ytReady=true; if(pendingId) loadVideo(pendi
 function loadVideo(id){
   if(!ytReady){ pendingId=id; return; }
   const box=document.querySelector('.vid'); const bl=box.querySelector('.blocked'); if(bl) bl.remove();
-  if(yt){ yt.cueVideoById(id); return; }
-  yt=new YT.Player('player',{host:'https://www.youtube-nocookie.com',videoId:id,
-    playerVars:{rel:0,playsinline:1,modestbranding:1},
-    events:{onError:e=>showBlocked(e.data), onStateChange:e=>{ if(e.data===0){ markWatched(true); } }}});
+  if(yt){ yt.cueVideoById({videoId:id,startSeconds:resumeAt(id)}); return; }
+  yt=new YT.Player('player',{videoId:id,
+    playerVars:{rel:0,playsinline:1,modestbranding:1,start:resumeAt(id)},
+    events:{onError:e=>showBlocked(e.data), onStateChange:e=>{ if(e.data===0){ delete POS[byId[cur][lang].id]; savePos(); markWatched(true); } }}});
 }
+let POS={}; try{POS=JSON.parse(localStorage.getItem('ccna-vid-pos')||'{}')}catch(e){}
+function savePos(){try{localStorage.setItem('ccna-vid-pos',JSON.stringify(POS))}catch(e){}}
+function resumeAt(id){ return Math.max(0,(POS[id]||0)-3); }
+setInterval(()=>{ try{ if(yt&&yt.getPlayerState&&yt.getPlayerState()===1){ const t=Math.floor(yt.getCurrentTime()), d=yt.getDuration(); const vid=byId[cur][lang].id; if(d&&t>d-20) delete POS[vid]; else POS[vid]=t; savePos(); } }catch(e){} },5000);
 function showBlocked(code){
   const v=byId[cur][lang];
   const d=document.createElement('div'); d.className='blocked';
@@ -134,6 +140,8 @@ document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>go(cur,b.datas
 $('#prev').onclick=()=>{ const i=L.findIndex(l=>l.id===cur); if(i>0) go(L[i-1].id); };
 $('#next').onclick=()=>{ const i=L.findIndex(l=>l.id===cur); if(i<L.length-1) go(L[i+1].id); };
 addEventListener('hashchange',()=>{ parseHash(); render(); window.scrollTo({top:0,behavior:'smooth'}); });
+const plUrl=k=>'https://www.youtube.com/watch_videos?video_ids='+L.map(l=>l[k].id).join(',');
+$('#plEn').href=plUrl('en'); $('#plAr').href=plUrl('ar');
 parseHash(); render();
 </script>
 <script>if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});</script>
